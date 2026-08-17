@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Приватные серверы Lineage 2</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body{
+      font-family: "Palatino Linotype", "Book Antiqua", Palatino, Georgia, serif;
+      background-color: rgb(161, 164, 165);
+    }
+
+    h1, h2, h3 {
+      font-family: "Palatino Linotype", "Book Antiqua", Palatino, Georgia, serif;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    p, ul, time, a, nav {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+
+    header{ 
+      margin: 0 auto;
+      padding: 15px 0;
+      background-color: rgb(69, 36, 24);
+      color: rgb(221, 213, 213);
+    }
+
+    h1{
+      font-size: 21px;
+      text-align: center;
+    }
+
+    h2{
+      margin: 10px;
+      text-align: center;
+      font-size: 16px;
+    }
+
+    main{
+      display: flex;
+      flex-direction: column;
+      margin-top: 20px;
+      gap: 35px 0px;
+      align-items: center;
+    }
+    
+    .card_servers{
+      display: flex;
+      flex-direction: column;
+      width: 95%;
+      font-weight: 900;
+      border-bottom: 5px black dotted;
+    }
+
+    .card_img{
+      width: 100%;
+    }
+
+    .card_img img{
+      width: 100%;
+      height: 150px;
+      background-color: #2d3436;
+    }
+
+    .info_server{
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding: 0 0 10px 20px;
+    }
+
+    .info_server h3{
+      text-align: center;
+      font-size: 24px;
+      padding: 5px 0;
+    }
+
+    .description{
+      word-wrap: break-word;
+    }
+
+    .link_chronicle{
+      color: rgb(7, 5, 143);
+      text-decoration: none;
+    }
+
+    .info_server ul{
+      list-style-type: none;
+    }
+
+    .server-date{
+      background-color: #57bb95;
+      border-radius: 12px;
+      padding: 5px;
+      width: 60%;
+      text-align: center;
+    }
+
+    .link-website{
+      color: rgb(7, 5, 143);
+      margin-top: 12px;
+      text-align: center;
+      text-decoration: none;
+    }
+    
+    footer{
+      margin-top: 50px;
+      background-color: rgb(69, 36, 24);
+      color: rgb(200, 191, 191);
+      display: flex;
+      flex-direction: column;
+      padding: 0 40px;
+    }
+
+    footer section{
+      display: flex;
+      flex-direction: column;
+    }
+
+    .disclaimer{
+      margin-top: 15px;
+      text-align: center;
+    }
+
+    .telegram-link {
+      color: rgb(200, 191, 191);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      margin-left: 0;
+      margin-right: 0;
+    }
+
+    .telegram-link:link{
+      color: rgb(129, 143, 211);
+    }
+
+    footer section nav{
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    footer section nav a{
+      margin-top: 10px;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    footer nav a:link{
+      color: rgb(129, 143, 211);
+    }
+
+    footer nav a:visited {
+      color: rgb(129, 143, 211);
+    }
+
+    .copyright{
+      margin: 30px 0 65px 0;
+      text-align: center;
+    }
+
+    .scroll-top {
+      position: fixed;
+      bottom: 30px;
+      right: 0;
+      width: 50px;
+      height: 50px;
+      background-color: rgb(69, 36, 24);
+      color: rgb(200, 191, 191);
+      border: 2px solid rgba(200, 191, 191, 0.3);
+      border-radius: 50%;
+      font-size: 24px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(20px);
+      z-index: 1000;
+      text-decoration: none;
+    }
+
+    .scroll-top:hover {
+      background-color: rgb(100, 60, 40);
+      transform: translateY(-3px);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .scroll-top.show {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+  @media (min-width: 768px) {
+
+    header{
+      background-color: transparent;
+      margin: 0 auto; 
+      padding: 15px 0;
+    }
+
+    h1{
+      font-size: 28px;
+      text-align: center;
+      color: black;
+    }
+    
+    .card_servers{
+      display: flex;
+      flex-direction: row;
+      max-width: 800px;
+      font-weight: 900;
+    }
+
+    .card_img{
+      width: 40%;
+    }
+
+    .card_img img{
+      width: 100%;
+      height: 85%;
+    }
+
+    .info_server{
+      display: flex;
+      flex-direction: column;
+      width: 60%;
+      padding: 0 0 20px 20px;
+    }
+
+    .info_server h3{
+      padding: 0 0 10px 0;
+    }
+
+    footer{
+      margin-top: 50px;
+      background-color: rgb(69, 36, 24);
+      color: rgb(200, 191, 191);
+      display: flex;
+      flex-direction: column;
+      padding: 0 40px;
+    }
+
+    .copyright{
+      margin: 30px 0 10px 0;
+      text-align: center;
+    }
+
+    .scroll-top {
+    width: 45px;
+    height: 45px;
+    font-size: 20px;
+    bottom: 20px;
+    right: 20px;
+  }
+}
+
+  @media (min-width: 1024px) {
+
+    h1{
+      font-size: 32px;
+      text-align: center;
+      color: black;
+    }
+
+    h2{
+      margin: 0 auto;
+      text-align: center;
+      font-size: 21px;
+      width: 50%;
+    }
+
+    main{
+      display: flex;
+      flex-direction: column;
+      margin-top: 20px;
+      align-items: center;
+    }
+    
+    .card_servers{
+      display: flex;
+      flex-direction: row;
+      max-width: 800px;
+      font-weight: 600;
+    }
+
+    .info_server{
+      display: flex;
+      flex-direction: column;
+      width: 60%;
+    }
+
+    .info_server h3{
+      padding: 0 0 20px 0;
+    }
+
+    .link_chronicle:hover{
+      color: rgb(104, 46, 5);
+    }
+
+    .link-website:hover{
+      color: rgb(104, 46, 5);
+    }
+
+    .card_img{
+      width: 40%;
+      height: auto;
+    }
+
+    .card_img img{
+      width: 100%;
+      height: 350px;
+      background-color: #2d3436;
+    }
+    
+    footer{
+      margin-top: 50px;
+      display: flex;
+      flex-direction: column;
+      border-top: 4px grey solid;
+      padding: 0 15px;
+    }
+
+    footer section{
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+
+    .disclaimer{
+      width: 35%;
+    }
+
+    .telegram-link {
+      display: inline-block;
+      color: rgb(200, 191, 191);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      transition: transform 0.3s ease;
+    }
+
+    .telegram-link:link{
+     color: rgb(129, 143, 211);
+    }
+
+    .telegram-link:hover{
+      transform: translateY(-3px);
+    }
+
+    footer section nav{
+      display: flex;
+      flex-direction: row;
+      color: rgb(200, 191, 191);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    footer section nav a:not(:last-child){
+      margin-right: 15px;
+    }
+
+    footer section nav a:hover{
+      color: white;
+    }
+
+    .copyright{
+      margin: 70px auto 20px auto;
+      width: 50%;
+      text-align: center;
+    }
+  }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Приватные игровые серверы Lineage 2</h1>
+</header>
+
+<h2>Серверы имеют базовые описания, с подробными настройками вы сможете ознакомиться, перейдя по ссылке проекта.</h2>
+
+<main>
+  
+  <section class="card_servers">
+    <section class="card_img">
+      <img src="images/dandelions.jpg" alt="aaaaaaaaaaaa">
+    </section>
+
+    <section class="info_server">
+      <h3>aaaaaaaaaaaa</h3>
+      <p>Хроника: <a href="#" class="link_chronicle">Interlude ⤴️</a></p>
+      <ul>
+        <li>Exp x5</li>
+        <li>Drop x5</li>
+        <li>Spoil x5</li>
+        <li>Adena x5</li>
+      </ul>
+      <p class="description">Описание: ф</p>
+      <time datetime="2026-08-16" class="server-date">16 августа</time>
+      <a href="#" class="link-website">Ссылка на сайт ⤴️</a>
+    </section>
+  </section>
+  
+  </main>
+
+
+<footer>
+  <section>
+   <p class="disclaimer">Вся информация размещена по дате открытия: сначала новые, потом старые. Если вы администратор ресурса 
+    и хотите добавить проект в анонсер, напишите, пожалуйста, в <a href="https://t.me/your_username" target="_blank" class="telegram-link">Telegram</a>. Если вам не понравилось размещение вашего сервера в моём 
+    анонсере, также пишите, пожалуйста, в <a href="https://t.me/your_username" target="_blank" class="telegram-link">Telegram</a> для его удаления.
+  </p>
+   <nav>
+   <a href="privacy.html">Политика конфеденциальности</a>
+   <a href="terms.html">Пользовательское соглашение</a>
+   <a href="cookies.html">Куки</a>
+   </nav>
+   </section>
+   <p class="copyright">Lineage II является зарегистрированной торговой маркой и интеллектуальной собственностью компании NCSoft. Данный проект 
+   является некоммерческим фанатским и не связан с правообладателем.
+   </p>
+</footer>
+<a href="#" class="scroll-top" id="scrollTopBtn" aria-label="Наверх">↑</a>
+<script>
+  function updateServerStatus() {
+    const dateElements = document.querySelectorAll('.server-date');
+    
+    dateElements.forEach(function(element) {
+      const dateStr = element.getAttribute('datetime');
+      const serverDate = new Date(dateStr);
+      
+      const currentDate = new Date();
+      
+      const serverDay = new Date(serverDate.getFullYear(), serverDate.getMonth(), serverDate.getDate());
+      const currentDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate());
+      
+      const dateText = element.textContent.trim();
+      
+      if (serverDay <= currentDay) {
+        element.innerHTML = `Открыт с ${dateText}`;
+      } else {
+        element.innerHTML = `Откроется ${dateText}`;
+      }
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', updateServerStatus);
+
+  const scrollBtn = document.getElementById('scrollTopBtn');
+
+window.addEventListener('scroll', function() {
+  if (window.scrollY > 300) {
+    scrollBtn.classList.add('show');
+  } else {
+    scrollBtn.classList.remove('show');
+  }
+});
+
+scrollBtn.addEventListener('click', function(e) {
+  e.preventDefault();
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
+});
+</script>
+</body>
+</html>
