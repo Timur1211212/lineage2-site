@@ -117,7 +117,7 @@
       color: rgb(200, 191, 191);
       display: flex;
       flex-direction: column;
-      padding: 0 40px;
+      padding: 0 15px;
     }
 
     footer section{
@@ -203,6 +203,125 @@
       transform: translateY(0);
     }
 
+    /* ===== МОДАЛЬНОЕ ОКНО ДЛЯ ИЗОБРАЖЕНИЙ ===== */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.9);
+  overflow: auto;
+  padding: 40px 20px;
+}
+
+.modal.show {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  max-width: 90%;
+  max-height: 90%;
+  object-fit: contain;
+  border-radius: 12px;
+  animation: modalZoom 0.3s ease;
+}
+
+@keyframes modalZoom {
+  from { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.modal-close {
+  position: absolute;
+  top: 20px;
+  right: 35px;
+  color: #fff;
+  font-size: 40px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: color 0.3s;
+  z-index: 10000;
+}
+
+.modal-close:hover {
+  color: #ccc;
+}
+
+.card_img img {
+  cursor: pointer;
+}
+
+/* ===== COOKIES УВЕДОМЛЕНИЕ ===== */
+.cookie-consent {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(69, 36, 24, 0.95);
+  color: rgb(200, 191, 191);
+  padding: 15px 20px;
+  z-index: 9999;
+  display: none;
+  border-top: 3px solid rgb(129, 143, 211);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.cookie-consent.show {
+  display: block;
+  animation: slideUp 0.5s ease;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.cookie-content {
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.cookie-content p {
+  margin: 0;
+  font-size: 14px;
+  flex: 1;
+}
+
+.cookie-content p a {
+  color: rgb(129, 143, 211);
+  text-decoration: underline;
+}
+
+.cookie-btn {
+  background-color: rgb(129, 143, 211);
+  color: white;
+  border: none;
+  padding: 10px 30px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
   @media (min-width: 768px) {
 
     header{
@@ -265,6 +384,29 @@
     bottom: 20px;
     right: 20px;
   }
+
+  .cookie-content {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .cookie-btn {
+    padding: 12px;
+  }
+
+  .cookie-consent {
+    width: 400px;
+    border: 3px solid rgb(129, 143, 211);
+    border-radius: 12px;
+  }
+
+.cookie-content p a:hover {
+  color: white;
+}
+
+.cookie-btn:hover {
+  background-color: rgb(104, 46, 5);
+}
 }
 
   @media (min-width: 1024px) {
@@ -392,6 +534,18 @@
 
 <h2>Серверы имеют базовые описания, с подробными настройками вы сможете ознакомиться, перейдя по ссылке проекта.</h2>
 
+<!-- ===== COOKIES УВЕДОМЛЕНИЕ ===== -->
+<div id="cookieConsent" class="cookie-consent">
+  <div class="cookie-content">
+    <p>
+      Мы используем файлы cookie для улучшения работы сайта. Продолжая использовать сайт, вы соглашаетесь с 
+      <a href="#">Политикой конфиденциальности</a> и 
+      <a href="#">Пользовательским соглашением</a>.
+    </p>
+    <button id="acceptCookies" class="cookie-btn">Принять</button>
+  </div>
+</div>
+
 <main>
   
   <section class="card_servers">
@@ -401,7 +555,7 @@
 
     <section class="info_server">
       <h3>bohpts.com</h3>
-      <p>Хроника: Interlude</p>  <!-- ← Убрал ссылку -->
+      <p>Хроника: Interlude</p>
       <ul>
         <li>Exp х500</li><li>Adena х10</li>
       </ul>
@@ -430,8 +584,39 @@
    является некоммерческим фанатским и не связан с правообладателем.
    </p>
 </footer>
+<div id="imageModal" class="modal">
+  <span class="modal-close">&times;</span>
+  <img class="modal-content" id="modalImg">
+</div>
 <a href="#" class="scroll-top" id="scrollTopBtn" aria-label="Наверх">↑</a>
 <script>
+  // ===== COOKIES УПРАВЛЕНИЕ =====
+document.addEventListener('DOMContentLoaded', function() {
+  const cookieConsent = document.getElementById('cookieConsent');
+  const acceptBtn = document.getElementById('acceptCookies');
+
+  // Проверяем, есть ли уже согласие
+  if (!localStorage.getItem('cookiesAccepted')) {
+    cookieConsent.classList.add('show');
+  }
+
+  // Обработчик кнопки "Принять"
+  acceptBtn.addEventListener('click', function() {
+    localStorage.setItem('cookiesAccepted', 'true');
+    cookieConsent.classList.remove('show');
+    
+    // Опционально: можно отправить событие в аналитику
+    console.log('Cookies accepted');
+  });
+
+  // Закрытие по клику вне (опционально)
+  cookieConsent.addEventListener('click', function(e) {
+    if (e.target === cookieConsent) {
+      cookieConsent.classList.remove('show');
+    }
+  });
+});
+
   function updateServerStatus() {
     const dateElements = document.querySelectorAll('.server-date');
     
@@ -472,6 +657,38 @@ scrollBtn.addEventListener('click', function(e) {
     top: 0,
     behavior: 'smooth'
   });
+});
+
+// ===== МОДАЛЬНОЕ ОКНО ДЛЯ ИЗОБРАЖЕНИЙ =====
+const modal = document.getElementById('imageModal');
+const modalImg = document.getElementById('modalImg');
+const closeBtn = document.querySelector('.modal-close');
+
+document.querySelectorAll('.card_img img').forEach(img => {
+  img.addEventListener('click', function() {
+    modal.classList.add('show');
+    modalImg.src = this.src;
+    document.body.style.overflow = 'hidden';
+  });
+});
+
+closeBtn.addEventListener('click', function() {
+  modal.classList.remove('show');
+  document.body.style.overflow = 'auto';
+});
+
+modal.addEventListener('click', function(e) {
+  if (e.target === modal) {
+    modal.classList.remove('show');
+    document.body.style.overflow = 'auto';
+  }
+});
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    modal.classList.remove('show');
+    document.body.style.overflow = 'auto';
+  }
 });
 </script>
 </body>
