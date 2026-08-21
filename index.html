@@ -352,6 +352,91 @@
   cursor: pointer;
 }
 
+/* ===== БУРГЕР-МЕНЮ ===== */
+.navbar {
+  display: flex;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  justify-content: end;
+}
+
+/* Кнопка бургера — показываем на мобильных */
+.navbar-toggle {
+  display: flex;  /* ← ПОКАЗЫВАЕМ НА МОБИЛЬНЫХ */
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: 5px;
+  background: transparent;
+  border: none;
+}
+
+.navbar-toggle span {
+  display: block;
+  width: 28px;
+  height: 3px;
+  background-color: rgb(69, 36, 24);
+  border-radius: 3px;
+  transition: all 0.3s ease;
+}
+
+/* Анимация бургера в крестик */
+.navbar-toggle.active span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.navbar-toggle.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.navbar-toggle.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(7px, -6px);
+}
+
+/* Меню — скрыто на мобильных */
+.navbar-menu {
+  display: none;  /* ← СКРЫТО НА МОБИЛЬНЫХ */
+  flex-direction: column;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: rgba(69, 36, 24, 0.98);
+  padding: 15px 0;
+  gap: 5px;
+  backdrop-filter: blur(10px);
+  list-style: none;
+  margin: 0;
+}
+
+.navbar-menu.open {
+  display: flex;  /* ← ПОКАЗЫВАЕМ ПРИ КЛИКЕ */
+}
+
+.navbar-menu li {
+  width: 100%;
+  text-align: center;
+}
+
+.navbar-menu li a {
+  display: block;
+  padding: 12px 20px;
+  color: rgb(221, 213, 213);
+  text-decoration: none;
+  font-size: 18px;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.navbar-menu li a:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.navbar-menu li a.active {
+  background-color: rgba(129, 143, 211, 0.3);
+  color: #fff;
+}
+
   @media (min-width: 768px) {
 
     header{
@@ -432,6 +517,10 @@
     justify-content: center;
     margin-top:15px;
   }
+
+  .navbar-toggle {
+  margin-right: 10px;
+}
 }
 
   @media (min-width: 1024px) {
@@ -518,6 +607,10 @@
       margin: 70px auto 20px auto;
       width: 50%;
     }
+
+    .navbar{
+      display: none;
+    }
   }
   </style>
   <script type="application/ld+json">
@@ -538,6 +631,22 @@
 <header>
   <h1>Приватные игровые серверы Lineage 2</h1>
 </header>
+
+<!-- ===== БУРГЕР-МЕНЮ ===== -->
+<nav class="navbar">
+  <div class="navbar-toggle" id="burgerToggle">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+  <ul class="navbar-menu" id="navbarMenu">
+    <li><a href="/">Главная</a></li>
+    <li><a href="/news">Новости</a></li>
+    <li><a href="/servers">Серверы</a></li>
+    <li><a href="/about">О проекте</a></li>
+    <li><a href="/admin">Админка</a></li>
+  </ul>
+</nav>
 
 <h2>Серверы имеют базовые описания, с подробными настройками вы сможете ознакомиться, перейдя по ссылке проекта.</h2>
 
@@ -806,6 +915,39 @@ chronicleFilter?.addEventListener('change', filterAndSortServers);
 // Запускаем после загрузки
 document.addEventListener('DOMContentLoaded', function() {
   setTimeout(filterAndSortServers, 100);
+});
+
+// ===== БУРГЕР-МЕНЮ =====
+const burgerToggle = document.getElementById('burgerToggle');
+const navbarMenu = document.getElementById('navbarMenu');
+
+burgerToggle.addEventListener('click', function() {
+  this.classList.toggle('active');
+  navbarMenu.classList.toggle('open');
+});
+
+// Закрываем меню при клике на ссылку
+document.querySelectorAll('.navbar-menu a').forEach(link => {
+  link.addEventListener('click', function() {
+    burgerToggle.classList.remove('active');
+    navbarMenu.classList.remove('open');
+  });
+});
+
+// Закрываем меню при клике вне
+document.addEventListener('click', function(e) {
+  const navbar = document.querySelector('.navbar');
+  if (!navbar.contains(e.target)) {
+    burgerToggle.classList.remove('active');
+    navbarMenu.classList.remove('open');
+  }
+});
+
+// Выделяем активную страницу
+document.querySelectorAll('.navbar-menu a').forEach(link => {
+  if (link.href === window.location.href) {
+    link.classList.add('active');
+  }
 });
 </script>
 </body>
