@@ -4,6 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Приватные серверы Lineage 2</title>
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Сайт о приватных сервера lineage 2">
+  <meta property="og:description" content="На сайте представлена информация о рабочих приватных серверах Lineage 2. Много хроник, объявлены даты открытия, рейты, есть короткие описания.">
+  <meta property="og:url" content="https://lineage2-site.onrender.com">
+  <meta property="og:image" content="https://lineage2-site.onrender.com/images/lineage2.webp">
+  <meta property="og:site_name" content="Private servers Lineage 2">
+  <meta property="og:locale" content="ru_RU">
+  
   <style>
     * {
       margin: 0;
@@ -74,7 +83,7 @@
       display: flex;
       flex-direction: column;
       gap: 10px;
-      padding: 0 0 10px 20px;
+      padding: 0 0 10px 0;
     }
 
     .info_server h3{
@@ -322,6 +331,26 @@
   flex-shrink: 0;
 }
 
+.filters {
+  display: flex;
+  flex-direction: row;
+}
+
+.filter-group {
+  display: flex;
+  padding: 8px 16px;
+  border-radius: 8px;
+}
+
+.filter-group select {
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  background: white;
+  cursor: pointer;
+}
+
   @media (min-width: 768px) {
 
     header{
@@ -407,6 +436,11 @@
 .cookie-btn:hover {
   background-color: rgb(104, 46, 5);
 }
+
+.filters {
+    flex-direction: row;
+    justify-content: center;
+  }
 }
 
   @media (min-width: 1024px) {
@@ -525,6 +559,18 @@
     }
   }
   </style>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Blog",
+  "name": "Сайт о приватных сервера lineage 2",
+  "description": "На сайте представлена информация о приватных серверах lineage 2",
+  "image": "https://lineage2-site.onrender.com/images/lineage2.webp",
+  "author": {
+    "name": "Zerokulchik"
+  }
+}
+</script>
 </head>
 <body>
 
@@ -533,6 +579,8 @@
 </header>
 
 <h2>Серверы имеют базовые описания, с подробными настройками вы сможете ознакомиться, перейдя по ссылке проекта.</h2>
+
+
 
 <!-- ===== COOKIES УВЕДОМЛЕНИЕ ===== -->
 <div id="cookieConsent" class="cookie-consent">
@@ -707,6 +755,75 @@ document.addEventListener('keydown', function(e) {
     modal.classList.remove('show');
     document.body.style.overflow = 'auto';
   }
+});
+
+const categoryFilter = document.getElementById('filterCategory');
+const chronicleFilter = document.getElementById('filterChronicle');
+
+function getDaysUntil(dateStr) {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const serverDate = new Date(dateStr);
+  serverDate.setHours(0, 0, 0, 0);
+  const diffTime = serverDate - today;
+  return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+}
+
+function filterAndSortServers() {
+  const container = document.querySelector('main');
+  const cards = document.querySelectorAll('.card_servers');
+  const categoryValue = categoryFilter.value;
+  const chronicleValue = chronicleFilter.value.toLowerCase();
+
+  let cardsArray = Array.from(cards);
+
+  // Фильтрация по категории
+  if (categoryValue !== 'all') {
+    cardsArray = cardsArray.filter(card => {
+      const dateStr = card.querySelector('.server-date')?.getAttribute('datetime') || '';
+      const daysUntil = getDaysUntil(dateStr);
+      const isOpened = daysUntil <= 0;
+
+      switch (categoryValue) {
+        case 'today': return daysUntil === 0;
+        case '3days': return daysUntil > 0 && daysUntil <= 3;
+        case 'week': return daysUntil > 3 && daysUntil <= 7;
+        case 'month': return daysUntil > 7 && daysUntil <= 30;
+        case 'opened': return isOpened;
+        default: return true;
+      }
+    });
+  }
+
+  // Фильтрация по хроникам
+  if (chronicleValue !== 'all') {
+    cardsArray = cardsArray.filter(card => {
+      const chronicleText = card.querySelector('.info_server p')?.textContent.toLowerCase() || '';
+      return chronicleText.includes(chronicleValue);
+    });
+  }
+
+  // Сортировка по дате (новые сначала)
+  cardsArray.sort((a, b) => {
+    const dateA = a.querySelector('.server-date')?.getAttribute('datetime') || '';
+    const dateB = b.querySelector('.server-date')?.getAttribute('datetime') || '';
+    return dateB.localeCompare(dateA);
+  });
+
+  // Обновляем DOM
+  cards.forEach(card => card.style.display = 'none');
+  cardsArray.forEach(card => {
+    container.appendChild(card);
+    card.style.display = 'flex';
+  });
+}
+
+categoryFilter?.addEventListener('change', filterAndSortServers);
+chronicleFilter?.addEventListener('change', filterAndSortServers);
+
+// Запускаем после загрузки
+document.addEventListener('DOMContentLoaded', function() {
+  setTimeout(filterAndSortServers, 100);
 });
 </script>
 </body>
