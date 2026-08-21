@@ -65,7 +65,7 @@
       display: flex;
       flex-direction: column;
       width: 95%;
-      font-weight: 900;
+      font-weight: 600;
       border-bottom: 5px black dotted;
     }
 
@@ -362,15 +362,12 @@
 
     h1{
       font-size: 28px;
-      text-align: center;
       color: black;
     }
     
     .card_servers{
-      display: flex;
       flex-direction: row;
       max-width: 800px;
-      font-weight: 900;
     }
 
     .card_img{
@@ -383,8 +380,6 @@
     }
 
     .info_server{
-      display: flex;
-      flex-direction: column;
       width: 60%;
       padding: 0 0 20px 20px;
     }
@@ -394,17 +389,11 @@
     }
 
     footer{
-      margin-top: 50px;
-      background-color: rgb(69, 36, 24);
-      color: rgb(200, 191, 191);
-      display: flex;
-      flex-direction: column;
       padding: 0 40px;
     }
 
     .copyright{
       margin: 30px 0 10px 0;
-      text-align: center;
     }
 
     .scroll-top {
@@ -441,6 +430,7 @@
 .filters {
     flex-direction: row;
     justify-content: center;
+    margin-top:15px;
   }
 }
 
@@ -448,35 +438,12 @@
 
     h1{
       font-size: 32px;
-      text-align: center;
-      color: black;
     }
 
     h2{
       margin: 0 auto;
-      text-align: center;
       font-size: 21px;
       width: 50%;
-    }
-
-    main{
-      display: flex;
-      flex-direction: column;
-      margin-top: 20px;
-      align-items: center;
-    }
-    
-    .card_servers{
-      display: flex;
-      flex-direction: row;
-      max-width: 800px;
-      font-weight: 600;
-    }
-
-    .info_server{
-      display: flex;
-      flex-direction: column;
-      width: 60%;
     }
 
     .info_server h3{
@@ -492,20 +459,14 @@
     }
 
     .card_img{
-      width: 40%;
       height: auto;
     }
 
     .card_img img{
-      width: 100%;
       height: 350px;
-      background-color: #2d3436;
     }
     
     footer{
-      margin-top: 50px;
-      display: flex;
-      flex-direction: column;
       border-top: 4px grey solid;
       padding: 0 15px;
     }
@@ -556,7 +517,6 @@
     .copyright{
       margin: 70px auto 20px auto;
       width: 50%;
-      text-align: center;
     }
   }
   </style>
@@ -593,8 +553,8 @@
   </div>
 </div>
 
-<div class="filters">
-  <div class="filter-group">
+<article class="filters">
+  <section class="filter-group">
     <select id="filterCategory">
       <option value="all">Все серверы</option>
       <option value="today">Открываются сегодня</option>
@@ -603,9 +563,9 @@
       <option value="month">Откроются в течение месяца</option>
       <option value="opened">Уже открыты</option>
     </select>
-  </div>
+  </section>
 
-  <div class="filter-group">
+  <section class="filter-group">
     <select id="filterChronicle">
       <option value="all">Все хроники</option>
       <option value="interlude">Interlude</option>
@@ -613,8 +573,8 @@
       <option value="essence">Essence</option>
       <option value="classic">Classic</option>
     </select>
-  </div>
-</div>
+  </section>
+</article>
 
 <main>
   
@@ -658,7 +618,7 @@
 
 <footer>
   <section>
-   <p class="disclaimer">Вся информация размещена по дате открытия: сначала новые, потом старые. Если вы администратор ресурса 
+   <p class="disclaimer">Если вы администратор ресурса 
     и хотите добавить проект в анонсер, напишите, пожалуйста, в <a href="https://t.me/ZerokulL2" target="_blank" class="telegram-link">Telegram</a>. Если вам не понравилось размещение вашего сервера в моём 
     анонсере, также пишите, пожалуйста, в <a href="https://t.me/ZerokulL2" target="_blank" class="telegram-link">Telegram</a> для его удаления.
   </p>
