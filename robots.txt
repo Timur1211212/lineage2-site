@@ -1,0 +1,6 @@
+Sitemap: https://lineage2-site.onrender.com/sitemap.xml
+User-agent: *
+Allow: https://lineage2-site.onrender.com/
+Allow: https://lineage2-site.onrender.com/privacy.html/
+Allow: https://lineage2-site.onrender.com/terms.html/
+Allow: https://lineage2-site.onrender.com/cookies.html/
