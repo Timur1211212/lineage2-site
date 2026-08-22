@@ -816,58 +816,5 @@ document.addEventListener('DOMContentLoaded', function() {
   setTimeout(filterAndSortServers, 100);
 });
 </script>
-
-<script>
-  if (document.modelContext) {
-    document.modelContext.registerTool({
-      name: 'filter_servers_by_criteria',
-      description: 'Найти приватные серверы Lineage 2 по хроникам и статусу открытия.',
-      inputSchema: {
-        type: 'object',
-        properties: {
-          chronicle: {
-            type: 'string',
-            enum: ['Все хроники', 'Interlude', 'High Five', 'Essence', 'Classic'],
-            description: 'Хроники сервера.'
-          },
-          status: {
-            type: 'string',
-            enum: ['Все серверы', 'Уже открыты', 'Откроются в течение 3 дней', 'Откроются в течение недели', 'Откроются в течение месяца'],
-            description: 'Статус открытия сервера.'
-          }
-        },
-        required: []
-      },
-      execute: async ({ chronicle, status }) => {
-        const filterCategory = document.getElementById('filterCategory');
-        const filterChronicle = document.getElementById('filterChronicle');
-
-        if (chronicle && chronicle !== 'Все хроники') {
-          filterChronicle.value = chronicle.toLowerCase();
-        } else {
-          filterChronicle.value = 'all';
-        }
-
-        if (status && status !== 'Все серверы') {
-          const statusMap = {
-            'Уже открыты': 'opened',
-            'Откроются в течение 3 дней': '3days',
-            'Откроются в течение недели': 'week',
-            'Откроются в течение месяца': 'month'
-          };
-          filterCategory.value = statusMap[status] || 'all';
-        } else {
-          filterCategory.value = 'all';
-        }
-
-        if (typeof filterAndSortServers === 'function') {
-          filterAndSortServers();
-        }
-
-        return '✅ Фильтры применены к списку серверов.';
-      }
-    });
-  }
-  </script>
 </body>
 </html>

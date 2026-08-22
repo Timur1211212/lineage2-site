@@ -1,8 +1,25 @@
 <urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9">
+
 <url>
 <loc>https://lineage2-site.onrender.com/</loc>
 <priority>0.5</priority>
 <changefreq>weekly</changefreq>
 <lastmod>2026-08-22</lastmod>
 </url>
+
+<url>
+<loc>https://lineage2-site.onrender.com/privacy.html/</loc>
+<lastmod>2026-08-17</lastmod>
+</url>
+
+<url>
+<loc>https://lineage2-site.onrender.com/terms.html/</loc>
+<lastmod>2026-08-17</lastmod>
+</url>
+
+<url>
+<loc>https://lineage2-site.onrender.com/cookies.html/</loc>
+<lastmod>2026-08-17</lastmod>
+</url>
+
 </urlset>
