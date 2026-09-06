@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Игровые новости</title>
+        <style>
+            *{
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+            body{
+      background-color: rgb(212, 212, 212);
+    }
+            header{
+                display: flex;
+                flex-direction: row;
+                gap: 8px;
+            }
+
+            header img{
+                width: 100px;
+                height: 100px;
+                border-radius: 50%;
+                margin-left: 5px;
+            }
+
+            h1{
+                font-size: 20px;
+                align-self: center;
+            }
+
+            main {
+                display: flex;
+                flex-direction: column;
+                padding: 0 5px;
+                align-items: center;
+            }
+
+            .list_section {
+                display: flex;
+                flex-direction: row;
+                gap: 20px;
+                margin: 20px 0;
+            }
+
+            .list_section a {
+                font-size: 19px;
+                padding: 10px 15px;
+                text-decoration: none;
+            }
+
+            .news {
+                display: flex;
+                flex-direction: column;
+                gap: 50px;
+            }
+
+            .news section {
+                display: flex;
+                flex-direction: column;
+                border: 1px solid black;
+                padding: 20px;
+                border-radius: 8px;
+                gap: 20px;
+            }
+
+            h3{
+                font-size: 22px;
+            }
+
+            .news section h4, p{
+                font-size: 18px;
+            }
+
+            footer{
+      margin-top: 50px;
+      background-color: rgb(69, 36, 24);
+      color: rgb(200, 191, 191);
+      display: flex;
+      flex-direction: column;
+      padding: 0 15px;
+    }
+
+    .disclaimer{
+      margin-top: 15px;
+      text-align: center;
+    }
+
+    .telegram-link {
+      color: rgb(200, 191, 191);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    .telegram-link:link{
+      color: rgb(129, 143, 211);
+    }
+
+    footer section nav{
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    footer section nav a{
+      margin-top: 10px;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    footer nav a:link{
+      color: rgb(129, 143, 211);
+    }
+
+    footer nav a:visited {
+      color: rgb(129, 143, 211);
+    }
+
+    .copyright{
+      margin: 30px 0 65px 0;
+      text-align: center;
+    }
+
+            .scroll-top {
+      position: fixed;
+      bottom: 30px;
+      right: 10px;
+      width: 50px;
+      height: 50px;
+      background-color: rgb(69, 36, 24);
+      color: rgb(200, 191, 191);
+      border: 2px solid rgba(200, 191, 191, 0.3);
+      border-radius: 50%;
+      font-size: 24px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(20px);
+      z-index: 1000;
+      text-decoration: none;
+    }
+
+    .scroll-top:hover {
+      background-color: rgb(100, 60, 40);
+      transform: translateY(-3px);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .scroll-top.show {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+        @media (min-width: 768px) {
+                header{
+                display: flex;
+                flex-direction: row;
+                gap: 8px;
+            }
+
+            header img{
+                width: 100px;
+                height: 100px;
+                border-radius: 50%;
+            }
+
+            h1{
+                font-size: 20px;
+                align-self: center;
+            }
+
+            main {
+                display: flex;
+                flex-direction: column;
+            }
+
+            .news{
+                display: flex;
+                flex-direction: column;
+                gap: 50px;
+                width: 60%;
+            }
+
+            .list_section {
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                padding: 15px 0;
+                border-radius: 8px;
+            }
+
+            .news section  {
+                border: 3px solid forestgreen;
+                padding: 15px;
+            }
+
+            .list_section a {
+                gap: 10px;
+                font-size: 19px;
+                padding: 10px 15px;
+            }
+
+            .scroll-top {
+    width: 45px;
+    height: 45px;
+    font-size: 20px;
+    bottom: 20px;
+    right: 20px;
+  }
+
+            }
+
+
+        @media (min-width: 1024px) {
+            header{
+                display: flex;
+                flex-direction: row;
+                gap: 40px;
+            }
+
+            header img{
+                width: 200px;
+                height: 200px;
+                border-radius: 50%;
+            }
+
+            h1{
+                font-size: 22px;
+                align-self: center;
+            }
+
+            main {
+                display: flex;
+                flex-direction: row;
+                align-items: flex-start;
+            }
+
+            .news{
+                display: flex;
+                flex-direction: column;
+            }
+
+            .news section {
+                display: flex;
+                flex-direction: column;
+                border: 2px solid black;
+                padding: 20px;
+            }
+
+            .news p{
+              line-height: 1.4;
+            }
+
+            .news a{
+              text-decoration: none;
+            }
+
+            .news a:hover{
+              text-decoration: underline;
+            }
+
+            .list_section {
+                display: flex;
+                flex-direction: column;
+                padding-left: 60px;
+                gap: 20px;
+                width: 20%;
+            }
+
+            .list_section a {
+                font-size: 19px;
+            }
+
+            .list_section a:hover{
+                text-decoration:underline;
+            }
+
+            footer{
+                border-top: 4px grey solid;
+                padding: 0 15px;
+            }
+
+            footer section{
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: baseline;
+            }
+
+    .disclaimer{
+      width: 35%;
+    }
+
+    .telegram-link {
+      display: inline-block;
+      color: rgb(200, 191, 191);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      transition: transform 0.3s ease;
+    }
+
+    .telegram-link:link{
+     color: rgb(129, 143, 211);
+    }
+
+    .telegram-link:hover{
+      transform: translateY(-3px);
+    }
+
+    footer section nav{
+      display: flex;
+      flex-direction: row;
+      color: rgb(200, 191, 191);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    footer section nav a:not(:last-child){
+      margin-right: 15px;
+    }
+
+    footer section nav a:hover{
+      color: white;
+    }
+
+    .copyright{
+      margin: 70px auto 20px auto;
+      width: 50%;
+    }
+        }
+        </style>
+    </head>
+    <body>
+         <header>
+            <img src="/news-images/image.jpeg" alt="#">
+            <h1>Хон.ру - обо всём про компьютерную игру Heroes of Newerth</h1>
+         </header>
+
+         <main>
+            <nav class="list_section">
+                <a href="/patch/patch.html">Патчи</a>
+                <a href="#">Предметы</a>
+                <a href="#">Герои</a>
+            </nav>
+        <article class="news">
+            <section>
+                <h3>HoN 0.12.4: Анатомия узурпации</h3>
+                <h4>Сваха с манией величия</h4>
+                <p>
+                    Раньше матчмейкинг работал как уставший таксист в аэропорту: хватал первого клиента, который махнул рукой, и 
+                    вез его хоть на край света, лишь бы счетчик тикал. В итоге игры напоминали социальные эксперименты: пять 
+                    потных киберспортсменов против команды людей, которые ищут клавишу «Атаковать».<br>
+
+                    Теперь сваха получила комплекс бога. Она больше не берет первое попавшееся. Если алгоритм видит, что может собрать две равные 
+                    команды из титанов или двух новичков, он будет жонглировать очередью до победного. Результат? Шанс попасть в игру к смурфам 
+                    (опытным игрокам на новых аккаунтах) для новичка упал с лотерейных 1 к 4 до почти невозможных 1 к 25. А разгромы в Mid Wars, где 
+                    одна команда выносила другую за 15 минут, сократились с частоты «каждая десятая игра» до статистической погрешности — 1 к 90. 
+                    Больше никакого садизма в час пик.
+                </p>
+                <a href="#">читать дальше...</a>
+            </section>
+
+            <section>
+                <h3>HoN 0.12.4: Анатомия узурпации</h3>
+                <h4>Сваха с манией величия</h4>
+                <p>
+                    Раньше матчмейкинг работал как уставший таксист в аэропорту: хватал первого клиента, который махнул рукой, и 
+                    вез его хоть на край света, лишь бы счетчик тикал. В итоге игры напоминали социальные эксперименты: пять 
+                    потных киберспортсменов против команды людей, которые ищут клавишу «Атаковать».<br>
+
+                    Теперь сваха получила комплекс бога. Она больше не берет первое попавшееся. Если алгоритм видит, что может собрать две равные 
+                    команды из титанов или двух новичков, он будет жонглировать очередью до победного. Результат? Шанс попасть в игру к смурфам 
+                    (опытным игрокам на новых аккаунтах) для новичка упал с лотерейных 1 к 4 до почти невозможных 1 к 25. А разгромы в Mid Wars, где 
+                    одна команда выносила другую за 15 минут, сократились с частоты «каждая десятая игра» до статистической погрешности — 1 к 90. 
+                    Больше никакого садизма в час пик.
+                </p>
+                <a href="#">читать дальше...</a>
+            </section>
+
+            <section>
+                <h3>HoN 0.12.4: Анатомия узурпации</h3>
+                <h4>Сваха с манией величия</h4>
+                <p>
+                    Раньше матчмейкинг работал как уставший таксист в аэропорту: хватал первого клиента, который махнул рукой, и 
+                    вез его хоть на край света, лишь бы счетчик тикал. В итоге игры напоминали социальные эксперименты: пять 
+                    потных киберспортсменов против команды людей, которые ищут клавишу «Атаковать».<br>
+
+                    Теперь сваха получила комплекс бога. Она больше не берет первое попавшееся. Если алгоритм видит, что может собрать две равные 
+                    команды из титанов или двух новичков, он будет жонглировать очередью до победного. Результат? Шанс попасть в игру к смурфам 
+                    (опытным игрокам на новых аккаунтах) для новичка упал с лотерейных 1 к 4 до почти невозможных 1 к 25. А разгромы в Mid Wars, где 
+                    одна команда выносила другую за 15 минут, сократились с частоты «каждая десятая игра» до статистической погрешности — 1 к 90. 
+                    Больше никакого садизма в час пик.
+                </p>
+                <a href="#">читать дальше...</a>
+            </section>
+
+
+            <section>
+                <h3>HoN 0.12.4: Анатомия узурпации</h3>
+                <h4>Сваха с манией величия</h4>
+                <p>
+                    Раньше матчмейкинг работал как уставший таксист в аэропорту: хватал первого клиента, который махнул рукой, и 
+                    вез его хоть на край света, лишь бы счетчик тикал. В итоге игры напоминали социальные эксперименты: пять 
+                    потных киберспортсменов против команды людей, которые ищут клавишу «Атаковать».<br>
+
+                    Теперь сваха получила комплекс бога. Она больше не берет первое попавшееся. Если алгоритм видит, что может собрать две равные 
+                    команды из титанов или двух новичков, он будет жонглировать очередью до победного. Результат? Шанс попасть в игру к смурфам 
+                    (опытным игрокам на новых аккаунтах) для новичка упал с лотерейных 1 к 4 до почти невозможных 1 к 25. А разгромы в Mid Wars, где 
+                    одна команда выносила другую за 15 минут, сократились с частоты «каждая десятая игра» до статистической погрешности — 1 к 90. 
+                    Больше никакого садизма в час пик.
+                </p>
+                <a href="#">читать дальше...</a>
+            </section>
+
+        </article>
+
+         </main>
+<footer>
+  <section>
+   <p class="disclaimer">Друзья, если есть интересные материалы для публикации, пишите, пожалуйста, в <a href="https://t.me/ZerokulL2" target="_blank" class="telegram-link">телеграмм</a>.
+  </p>
+   <nav>
+   <a href="privacy.html">Политика конфеденциальности</a>
+   <a href="terms.html">Пользовательское соглашение</a>
+   <a href="cookies.html">Куки</a>
+   </nav>
+   </section>
+   <p class="copyright">Lineage II является зарегистрированной торговой маркой и интеллектуальной собственностью компании NCSoft. Данный проект 
+   является некоммерческим фанатским и не связан с правообладателем.
+   </p>
+</footer>
+         <a href="#" class="scroll-top" id="scrollTopBtn" aria-label="Наверх">↑</a>
+         <script>
+              const scrollBtn = document.getElementById('scrollTopBtn');
+
+window.addEventListener('scroll', function() {
+  if (window.scrollY > 300) {
+    scrollBtn.classList.add('show');
+  } else {
+    scrollBtn.classList.remove('show');
+  }
+});
+
+scrollBtn.addEventListener('click', function(e) {
+  e.preventDefault();
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
+});
+         </script>
+    </body>
+</html>
